@@ -114,6 +114,7 @@ jobs:
         sed -i 's/#error "Unsupported NR_CPUS for lb tracepoint."/\/\/ #error "Unsupported NR_CPUS for lb tracepoint."/g' include/trace/events/sched.h
         sed -i 's/mdss_prim_panel_fb_unblank/\/\/ mdss_prim_panel_fb_unblank/g' drivers/input/fingerprint/fpc1268_tee/fpc1020_tee.c
         sed -i '1i #include <video/msm_mdss.h>\n#include <linux/mdss_io_util.h>' drivers/input/touchscreen/synaptics_dsx_force/synaptics_dsx_core.c
+        sed -i 's/-Werror//g' drivers/input/touchscreen/synaptics_dsx_force/Makefile
     
     - name: Setup LXC
       if: env.ENABLE_LXC == 'true'
