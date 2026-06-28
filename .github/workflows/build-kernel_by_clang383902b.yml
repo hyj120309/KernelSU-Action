@@ -108,10 +108,11 @@ jobs:
             sed -i "s/CONFIG_CC_STACKPROTECTOR_STRONG=y/# CONFIG_CC_STACKPROTECTOR_STRONG is not set/g" arch/${{ env.ARCH }}/configs/${{ env.KERNEL_CONFIG }}
         fi
         
-    - name: Patch sched.h tracepoint error
+    - name: Patch for mi6
       run: |
         cd kernel_workspace/android-kernel
         sed -i 's/#error "Unsupported NR_CPUS for lb tracepoint."/\/\/ #error "Unsupported NR_CPUS for lb tracepoint."/g' include/trace/events/sched.h
+        sed -i 's/mdss_prim_panel_fb_unblank/\/\/ mdss_prim_panel_fb_unblank/g' drivers/input/fingerprint/fpc1268_tee/fpc1020_tee.c
     
     - name: Setup LXC
       if: env.ENABLE_LXC == 'true'
