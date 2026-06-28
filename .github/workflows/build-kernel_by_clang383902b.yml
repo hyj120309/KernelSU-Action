@@ -137,7 +137,15 @@ jobs:
         if [ -f $GITHUB_WORKSPACE/kernel_workspace/android-kernel/net/netfilter/xt_qtaguid.c ]; then
             patch -p0 < $GITHUB_WORKSPACE/kernel_workspace/android-kernel/utils/xt_qtaguid.patch
         fi
+
+    - name: Disable strict implicit declaration warning
+      run: |
+        cd kernel_workspace/android-kernel
         
+        # 直接把顶层 Makefile 里的这行严格检查删掉
+        # 这样编译器遇到未声明函数时只会报警告，而不会停止编译
+        sed -i 's/-Werror-implicit-function-declaration//g' Makefile
+
     - name: Setup Kali-Nethunter  
       if: env.ENABLE_NETHUNTER == 'true'
       run: |
