@@ -108,6 +108,11 @@ jobs:
             sed -i "s/CONFIG_CC_STACKPROTECTOR_STRONG=y/# CONFIG_CC_STACKPROTECTOR_STRONG is not set/g" arch/${{ env.ARCH }}/configs/${{ env.KERNEL_CONFIG }}
         fi
         
+    - name: Patch sched.h tracepoint error
+      run: |
+        cd kernel_workspace/android-kernel
+        sed -i 's/#error "Unsupported NR_CPUS for lb tracepoint."/\/\/ #error "Unsupported NR_CPUS for lb tracepoint."/g' include/trace/events/sched.h
+    
     - name: Setup LXC
       if: env.ENABLE_LXC == 'true'
       run: |
