@@ -78,11 +78,11 @@ jobs:
             echo "HAVE_SOURCE_BOOT_IMAGE=true" >> $GITHUB_ENV
         fi
   
-    - name: Setup KernelSU-Next
+    - name: Setup ReSukisu
       if: env.ENABLE_KERNELSU == 'true'
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
-        curl -LSs "https://raw.githubusercontent.com/hyj120309/KernelSU-Next/refs/heads/dev/kernel/setup.sh" | bash -s legacy
+        curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/main/kernel/setup.sh" | bash
       
 
     - name: Setup Configuration for Kernel
