@@ -85,6 +85,7 @@ jobs:
         curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/main/kernel/setup.sh" | bash
         echo Apply the patches
         mkdir patch
+        ls $GITHUB_WORKSPACE
         cp $GITHUB_WORKSPACE/patch/* ./patch
         cd patch
         chmod +x patch.sh
