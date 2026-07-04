@@ -39,6 +39,7 @@ jobs:
         echo "ENABLE_LXC=$(cat $CONFIG_ENV | grep -w "ENABLE_LXC" | head -n 1 | cut -d "=" -f 2)" >> $GITHUB_ENV
         echo "DISABLE_FST=$(cat $CONFIG_ENV | grep -w "DISABLE_FST" | head -n 1 | cut -d "=" -f 2)" >> $GITHUB_ENV
         echo "ENABLE_NETHUNTER=$(cat $CONFIG_ENV | grep -w "ENABLE_NETHUNTER" | head -n 1 | cut -d "=" -f 2)" >> $GITHUB_ENV
+        echo "AUTO_PATCH=$(cat $CONFIG_ENV | grep -w "AUTO_PATCH" | head -n 1 | cut -d "=" -f 2)" >> $GITHUB_ENV
         
     - name: Set swap to 10G
       uses: pierotofy/set-swap-space@master
@@ -83,7 +84,10 @@ jobs:
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
         curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/main/kernel/setup.sh" | bash
-        echo Apply the patches
+        
+    - name: Apply the patches
+      if: env.AUTO_PATCH == 'true'
+      run: |
         mkdir patch
         # ls $GITHUB_WORKSPACE
         cp $GITHUB_WORKSPACE/patch/* ./patch
