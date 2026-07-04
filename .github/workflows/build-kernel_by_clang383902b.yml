@@ -83,7 +83,7 @@ jobs:
       run: |
         cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
         curl -LSs "https://raw.githubusercontent.com/ReSukiSU/ReSukiSU/main/kernel/setup.sh" | bash
-        ehco Apply the patches
+        echo Apply the patches
         mkdir patch
         cp $GITHUB_WORKSPACE/patch/* ./patch
         cd patch
