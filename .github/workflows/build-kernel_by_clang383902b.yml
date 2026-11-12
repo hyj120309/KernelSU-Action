@@ -89,9 +89,9 @@ jobs:
       if: env.AUTO_PATCH == 'true'
       run: |
         ls $GITHUB_WORKSPACE
+        echo
+        ls ./
         mkdir patch
-        echo 
-        ls $GITHUB_WORKSPACE
         cp $GITHUB_WORKSPACE/patch/* ./patch
         cd patch
         chmod +x apply.sh
