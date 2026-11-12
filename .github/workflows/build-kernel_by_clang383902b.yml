@@ -89,6 +89,7 @@ jobs:
       if: env.AUTO_PATCH == 'true'
       run: |
         ls $GITHUB_WORKSPACE
+        cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
         echo
         ls ./
         mkdir patch
