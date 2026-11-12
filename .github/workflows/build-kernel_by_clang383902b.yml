@@ -222,7 +222,14 @@ jobs:
                exit 1
            fi
        fi
-  
+
+    - name: Pack kernel partition images
+      if: env.CHECK_FILE_IS_OK == 'true'
+      run: |
+        cd $GITHUB_WORKSPACE/kernel_workspace/android-kernel
+        chmod +x pack_kernel.sh
+        ./pack_kernel.sh
+
     - name: Make Anykernel3
       if: env.CHECK_FILE_IS_OK == 'true'
       run: |
@@ -264,6 +271,15 @@ jobs:
       with:
         name: ${{ env.KERNEL_IMAGE_NAME }}${{ env.UPLOADNAME }}-${{ env.DEVICE }}-${{ env.BUILD_TIME }}
         path: kernel_workspace/android-kernel/out/arch/${{ env.ARCH }}/boot/${{ env.KERNEL_IMAGE_NAME }}
+
+    - name: Upload kernel partition images
+      if: env.CHECK_FILE_IS_OK == 'true'
+      uses: actions/upload-artifact@v4
+      with:
+        name: KernelImg${{ env.UPLOADNAME }}-${{ env.DEVICE }}-${{ env.BUILD_TIME }}
+        path: |
+          kernel_workspace/android-kernel/out/Kirin980-enforcing.img
+          kernel_workspace/android-kernel/out/Kirin980-permissive.img
 
     - name: Upload AnyKernel3
       if: env.CHECK_FILE_IS_OK == 'true'
