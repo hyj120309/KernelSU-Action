@@ -88,8 +88,10 @@ jobs:
     - name: Apply the patches
       if: env.AUTO_PATCH == 'true'
       run: |
+        ls $GITHUB_WORKSPACE
         mkdir patch
-        # ls $GITHUB_WORKSPACE
+        echo 
+        ls $GITHUB_WORKSPACE
         cp $GITHUB_WORKSPACE/patch/* ./patch
         cd patch
         chmod +x apply.sh
